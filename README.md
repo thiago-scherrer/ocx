@@ -11,7 +11,7 @@ Vá até o [security credentials](https://console.aws.amazon.com/iam/home#securi
 Com os dados gerados execute o setup, com o comando `ocx setup`:
 
 ```sh
-ocx setup
+$ ocx setup
 Enter the AWS_ACCESS_KEY_ID: aaaaa
 Enter the AWS_SECRET_ACCESS_KEY: bbbbb
 Enter the AWS region: us-east-1
