@@ -5,16 +5,16 @@ import (
 	"github.com/thiago-scherrer/ocx/internal/tools"
 )
 
-// lsgroupCmd represents the lsgroup command
-var lsgroupCmd = &cobra.Command{
-	Use:   "lsgroup",
+// groupCmd represents the group command
+var groupCmd = &cobra.Command{
+	Use:   "group",
 	Short: "List log groups",
 	Long:  `Show all log groups avaliable on cloudwath region account`,
 	Run: func(cmd *cobra.Command, args []string) {
-		tools.LsGroup()
+		tools.Group()
 	},
 }
 
 func init() {
-	logCmd.AddCommand(lsgroupCmd)
+	logCmd.AddCommand(groupCmd)
 }

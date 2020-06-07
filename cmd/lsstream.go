@@ -5,16 +5,16 @@ import (
 	"github.com/thiago-scherrer/ocx/internal/tools"
 )
 
-// lsstreamCmd represents the lsstream command
-var lsstreamCmd = &cobra.Command{
-	Use:   "lsstream",
+// streamCmd represents the stream command
+var streamCmd = &cobra.Command{
+	Use:   "stream",
 	Short: "List log stream",
 	Long:  `Show all log stream avaliable on cloudwath region account`,
 	Run: func(cmd *cobra.Command, args []string) {
-		tools.Lsstream(args)
+		tools.Stream(args)
 	},
 }
 
 func init() {
-	logCmd.AddCommand(lsstreamCmd)
+	logCmd.AddCommand(streamCmd)
 }

@@ -19,8 +19,8 @@ func client() *cloudwatchlogs.CloudWatchLogs {
 	return cloudwatchlogs.New(sess)
 }
 
-// LsGroup run the ls
-func LsGroup() {
+// Group run the ls
+func Group() {
 	c := client()
 
 	params := &cloudwatchlogs.DescribeLogGroupsInput{}
@@ -39,8 +39,8 @@ func LsGroup() {
 	}
 }
 
-// Lsstream run the ls on streams
-func Lsstream(args []string) {
+// Stream run the ls on streams
+func Stream(args []string) {
 	if len(args) < 1 {
 		log.Fatalln("Error! Need log group name.")
 	}
