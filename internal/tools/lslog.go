@@ -5,23 +5,12 @@ import (
 	"log"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 )
 
-func client() *cloudwatchlogs.CloudWatchLogs {
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String("us-east-1"),
-	})
-	if err != nil {
-		log.Fatal("Error making session, got: ", err)
-	}
-	return cloudwatchlogs.New(sess)
-}
-
 // Group run the ls
 func Group() {
-	c := client()
+	c := Client()
 
 	params := &cloudwatchlogs.DescribeLogGroupsInput{}
 
@@ -47,7 +36,7 @@ func Stream(args []string) {
 
 	lg := args[0]
 
-	c := client()
+	c := Client()
 
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
 		LogGroupName: aws.String(lg),
