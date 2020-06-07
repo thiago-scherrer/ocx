@@ -29,7 +29,6 @@ var (
 	home, _ = os.UserHomeDir()
 	awsdir  = home + "/.aws"
 	awcred  = awsdir + "/credentials"
-	awsc    = awsdir + "/config"
 )
 
 func createDir() bool {
@@ -66,23 +65,11 @@ func createFile(akey, asec, reg string) bool {
 		log.Fatal("Error writing on file, got: ", err)
 	}
 
+	_, err = f1.WriteString("region=" + reg)
+	if err != nil {
+		log.Fatal("Error writing on file, got: ", err)
+	}
+
 	f1.Sync()
-
-	f2, err := os.Create(awsc)
-	if err != nil {
-		log.Fatal("Error creating file, got: ", err)
-	}
-	defer f2.Close()
-
-	_, err = f2.WriteString("[default]\n")
-	if err != nil {
-		log.Fatal("Error writing on file, got: ", err)
-	}
-
-	_, err = f2.WriteString("region=" + reg)
-	if err != nil {
-		log.Fatal("Error writing on file, got: ", err)
-	}
-
 	return true
 }

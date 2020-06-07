@@ -11,7 +11,7 @@ var lsstreamCmd = &cobra.Command{
 	Short: "List log stream",
 	Long:  `Show all log stream avaliable on cloudwath region account`,
 	Run: func(cmd *cobra.Command, args []string) {
-		tools.Lsstream()
+		tools.Lsstream(args)
 	},
 }
 
