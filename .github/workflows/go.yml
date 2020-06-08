@@ -30,4 +30,4 @@ jobs:
       run: go build -v .
 
     - name: Make release
-      uses: gogaia/makerel@master
+      run: docker run gogaia/makerel:latest
