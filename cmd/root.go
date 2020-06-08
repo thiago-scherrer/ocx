@@ -31,9 +31,11 @@ func init() {
 
 	rootCmd.PersistentFlags().String("sname", "", "Stream Name")
 
-	rootCmd.PersistentFlags().Int64("lines", 1, "Lines")
+	rootCmd.PersistentFlags().Int64("lines", 1, "Lines number")
 
 	rootCmd.PersistentFlags().Int64("sec", 60, "Seconds")
+
+	rootCmd.PersistentFlags().String("filter", "", "Filter by")
 
 }
 

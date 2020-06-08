@@ -15,11 +15,12 @@ var streamCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		gname, err := cmd.Flags().GetString("gname")
 		s, _ := cmd.Flags().GetInt64("sec")
+		f, _ := cmd.Flags().GetString("filter")
 
 		if err != nil {
 			log.Fatalln("Error! Need log group name")
 		}
-		tools.Stream(gname, s)
+		tools.Stream(gname, f, s)
 	},
 }
 
