@@ -29,5 +29,3 @@ jobs:
     - name: Build
       run: go build -v .
 
-    - name: Make release
-      run: docker run gogaia/makerel:latest
