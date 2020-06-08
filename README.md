@@ -1,5 +1,8 @@
 # ocx
 
+![Go](https://github.com/thiago-scherrer/ocx/workflows/Go/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/thiago-scherrer/ocx)](https://goreportcard.com/report/github.com/thiago-scherrer/ocx)
+
 Outro CLI x
 
 ## Como instalar

@@ -11,7 +11,7 @@ import (
 var streamCmd = &cobra.Command{
 	Use:   "stream --gname GROUP_NAME",
 	Short: "List log stream",
-	Long:  `Show all log stream avaliable on cloudwath region account`,
+	Long:  `Show all log stream available on cloudwath region account`,
 	Run: func(cmd *cobra.Command, args []string) {
 		gname, err := cmd.Flags().GetString("gname")
 		s, _ := cmd.Flags().GetInt64("sec")

@@ -9,7 +9,7 @@ import (
 var groupCmd = &cobra.Command{
 	Use:   "group",
 	Short: "List log groups",
-	Long:  `Show all log groups avaliable on cloudwath region account`,
+	Long:  `Show all log groups available on cloudwath region account`,
 	Run: func(cmd *cobra.Command, args []string) {
 		tools.Group()
 	},
