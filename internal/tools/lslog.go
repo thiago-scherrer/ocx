@@ -41,19 +41,22 @@ func Stream(g string, s int64) {
 		OrderBy:      aws.String("LogStreamName"),
 	}
 
-	req, resp := c.DescribeLogStreamsRequest(params)
-	err := req.Send()
-	if err != nil { // resp is now filled
-		log.Fatalln("Error to get Log Stream, got:", err)
-	}
-
-	for _, l := range resp.LogStreams {
-		if len(*l.LogStreamName) <= 0 {
-			break
-		}
-		t := *l.LastEventTimestamp
-		if t >= af {
-			fmt.Println(*l.LogStreamName)
-		}
+	pageNum := 0
+	err := c.DescribeLogStreamsPages(params,
+		func(page *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
+			pageNum++
+			for _, l := range page.LogStreams {
+				if len(*l.LogStreamName) <= 0 {
+					break
+				}
+				t := *l.LastEventTimestamp
+				if t >= af {
+					fmt.Println(*l.LogStreamName)
+				}
+			}
+			return true
+		})
+	if err != nil {
+		log.Fatalln(err)
 	}
 }
