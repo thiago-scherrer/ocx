@@ -36,7 +36,6 @@ func Stream(g string, s int64) {
 	tn := time.Now()
 	af := aws.TimeUnixMilli(tn.Add(time.Duration(-s) * time.Second))
 
-	fmt.Println(s)
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
 		LogGroupName: aws.String(g),
 		OrderBy:      aws.String("LogStreamName"),
