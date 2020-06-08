@@ -33,9 +33,6 @@ func Group() {
 func Stream(g string, s int64) {
 	c := Client()
 
-	tn := time.Now()
-	af := aws.TimeUnixMilli(tn.Add(time.Duration(-s) * time.Second))
-
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
 		LogGroupName: aws.String(g),
 		OrderBy:      aws.String("LogStreamName"),
@@ -44,14 +41,19 @@ func Stream(g string, s int64) {
 	pageNum := 0
 	err := c.DescribeLogStreamsPages(params,
 		func(page *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
+			tn := time.Now()
+			af := aws.TimeUnixMilli(tn.Add(time.Duration(-s) * time.Second))
+
 			pageNum++
 			for _, l := range page.LogStreams {
 				if len(*l.LogStreamName) <= 0 {
 					break
 				}
-				t := *l.LastEventTimestamp
-				if t >= af {
-					fmt.Println(*l.LogStreamName)
+
+				if l.LastIngestionTime != nil {
+					if *l.LastEventTimestamp >= af {
+						fmt.Println(*l.LogStreamName)
+					}
 				}
 			}
 			return true
