@@ -30,4 +30,4 @@ jobs:
       run: go build -v .
 
     - name: Make release
-      uses: gogaia/actions/makerel@master
+      uses: gogaia/makerel@master
