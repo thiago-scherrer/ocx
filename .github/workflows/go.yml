@@ -32,9 +32,6 @@ jobs:
     - name: Make release
       run: docker run gogaia/makerel:latest
       
-on: release
-name: Build Release
-jobs:
   release-linux-386:
     name: release linux/386
     runs-on: ubuntu-latest
