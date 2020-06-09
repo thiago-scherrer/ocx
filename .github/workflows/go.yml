@@ -29,3 +29,20 @@ jobs:
     - name: Build
       run: go build -v .
 
+    - name: Make release
+      run: docker run gogaia/makerel:latest
+      
+on: release
+name: Build Release
+jobs:
+  release-linux-386:
+    name: release linux/386
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: compile and release
+      uses: thiago-scherrer/go-release.action@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GOARCH: "386"
+        GOOS: linux
