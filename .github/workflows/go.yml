@@ -28,9 +28,6 @@ jobs:
 
     - name: Build
       run: go build -v .
-
-    - name: Make release
-      run: docker run gogaia/makerel:latest
       
   release-linux-386:
     name: release linux/386
