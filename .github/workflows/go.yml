@@ -29,8 +29,8 @@ jobs:
 #    - name: Build
 #      run: go build -v .
       
-  release-linux-386:
-    name: release linux/386
+  release-linux-x64:
+    name: release linux/amd64
     runs-on: ubuntu-latest
     #needs: build
     steps:
@@ -39,5 +39,5 @@ jobs:
       uses: thiago-scherrer/go-release.action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        GOARCH: "386"
+        GOARCH: "amd64"
         GOOS: linux
