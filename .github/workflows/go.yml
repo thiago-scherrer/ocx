@@ -28,7 +28,7 @@ jobs:
 #
 #    - name: Build
 #      run: go build -v .
-      
+
   release-linux-x64:
     name: release linux/amd64
     runs-on: ubuntu-latest
@@ -41,3 +41,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         GOARCH: "amd64"
         GOOS: linux
+        EXTRA_FILES: "LICENSE"
