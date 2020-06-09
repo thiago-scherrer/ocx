@@ -39,6 +39,6 @@ jobs:
       uses: thiago-scherrer/go-release.action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        GOARCH: "amd64"
+        GOARCH: amd64
         GOOS: linux
-        EXTRA_FILES: "LICENSE"
+        CMD_PATH: "  "
