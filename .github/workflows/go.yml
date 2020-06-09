@@ -36,7 +36,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: compile and release
-      uses: thiago-scherrer/go-release.action@v1.0.1
+      uses: thiago-scherrer/go-release.action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         GOARCH: "386"
