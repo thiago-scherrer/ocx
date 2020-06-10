@@ -37,6 +37,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: thiago-scherrer/go-release-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GH_KEY }}
         goos: linux
         goarch: amd64
+        
