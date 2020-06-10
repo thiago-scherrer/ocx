@@ -14,7 +14,7 @@ jobs:
       uses: ngs/go-release.action@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GOARCH: "386"
+        GOARCH: "amd64"
         GOOS: linux
         EXTRA_FILES: "LICENSE"
 
