@@ -3,9 +3,12 @@ name: Go
 on:
   push:
     branches: [ master ]
+    tags:        
+      - v0.0.*
   pull_request:
     branches: [ master ]
 
+      
 jobs:
 
   build:
