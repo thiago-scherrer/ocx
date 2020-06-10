@@ -5,21 +5,22 @@
 
 Outro CLI x
 
-## Como instalar
+## Instalar baixando o binário
+
+Baixe o binário de acordo com o seu sistema operacional, indo em [releases](https://github.com/thiago-scherrer/ocx/releases)  
+
+Linux e macOS
+
+```sh
+tar -C /bin/ -zxvf ocx_0.0.8_linux_amd64.tar.gz ocx
+```
+
+## Instalar compilando
 
 Usando go get (go >=1.14.4):
 
 ```sh
-$ go get github.com/thiago-scherrer/ocx
-$ $GOPATH/bin/ocx --help
-
-Another cli X
-
-Usage:
-  ocx [command]
-
-...
-
+go get github.com/thiago-scherrer/ocx
 ```
 
 ## Como usar
@@ -81,4 +82,12 @@ teste8
 teste9
 teste10
 
+```
+
+Exemplo de comandos de ajuda:
+
+```sh
+ocx --help
+ocx log --help
+ocx log tail --help
 ```
