@@ -12,7 +12,7 @@ Baixe o binário de acordo com o seu sistema operacional, indo em [releases](htt
 Linux e macOS
 
 ```sh
-tar -C /bin/ -zxvf ocx_0.0.8_linux_amd64.tar.gz ocx
+tar -C /bin/ -zxvf ocx_0.0.9_linux_amd64.tar.gz ocx
 ```
 
 ## Instalar compilando
