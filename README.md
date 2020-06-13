@@ -50,19 +50,20 @@ $ ocx log group
 ola42
 ```
 
-Listando Streams que tiveram atualização nos últimos 600 segundos:
+Lista todos os Stream, ordenados por atualização:
 
 ```sh
-$ ocx log stream --gname ola42 --sec 600
+$ ocx log stream --gname ola42
 
-logstream
+...
 ```
 
-Listando Streams que tiveram atualização nos últimos 600 segundos e que possuem *stream* no nome:
+Lista o stream mais recente e que possuem *stream* no nome:
 
 ```sh
-$ ocx log stream --gname ola42 --sec 600 --filter stream
-logstream
+$ ocx log stream --gname ola42 --filter stream
+
+...
 ```
 
 Recebendo os eventos de logs:

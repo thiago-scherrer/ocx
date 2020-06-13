@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"regexp"
-	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
@@ -16,10 +15,9 @@ func Group() {
 
 	params := &cloudwatchlogs.DescribeLogGroupsInput{}
 
-	pg := 0
 	err := c.DescribeLogGroupsPages(params,
 		func(page *cloudwatchlogs.DescribeLogGroupsOutput, lastPage bool) bool {
-			pg++
+
 			for _, l := range page.LogGroups {
 				fmt.Println(*l.LogGroupName)
 			}
@@ -31,46 +29,62 @@ func Group() {
 }
 
 // Stream run the ls on streams
-func Stream(g, f string, s int64) {
+func Stream(g, f string) {
+	ch := make(chan bool)
 	c := Client()
 
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
 		LogGroupName: aws.String(g),
-		OrderBy:      aws.String("LogStreamName"),
+		OrderBy:      aws.String("LastEventTime"),
+		Limit:        aws.Int64(50),
 	}
 
-	pg := 0
-	err := c.DescribeLogStreamsPages(params,
-		func(page *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
-			tn := time.Now()
-			af := aws.TimeUnixMilli(tn.Add(time.Duration(-s) * time.Second))
-
-			pg++
-			for _, l := range page.LogStreams {
-				if len(*l.LogStreamName) <= 0 {
-					break
+	hd := func(page *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
+		for _, l := range page.LogStreams {
+			a := *l.LogStreamName
+			go func(a string) {
+				ch <- matcher(f, a)
+			}(a)
+			select {
+			case x, _ := <-ch:
+				if x {
+					close(ch)
+					return false
 				}
 
-				if l.LastIngestionTime != nil && *l.LastEventTimestamp >= af {
-
-					if len(f) != 0 {
-						m, err := regexp.MatchString(f+".*", *l.LogStreamName)
-						if err != nil {
-							log.Println(err)
-						}
-
-						if m {
-							fmt.Println(*l.LogStreamName)
-						}
-
-					} else {
-						fmt.Println(*l.LogStreamName)
-					}
-				}
 			}
-			return true
-		})
+		}
+		return true
+	}
+
+	err := c.DescribeLogStreamsPages(params, hd)
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	go func() {
+		err := c.DescribeLogStreamsPages(params, hd)
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+	}()
+}
+
+func matcher(f, a string) bool {
+	if len(f) != 0 {
+		m, err := regexp.MatchString(f+".*", a)
+		if err != nil {
+			log.Println(err)
+		}
+		if m {
+			fmt.Println(a)
+			return true
+		}
+	} else {
+		fmt.Println(a)
+		return false
+	}
+
+	return false
 }

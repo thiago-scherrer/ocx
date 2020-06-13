@@ -33,8 +33,6 @@ func init() {
 
 	rootCmd.PersistentFlags().Int64("lines", 1, "Lines number")
 
-	rootCmd.PersistentFlags().Int64("sec", 60, "Seconds")
-
 	rootCmd.PersistentFlags().String("filter", "", "Filter by")
 
 }
