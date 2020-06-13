@@ -3,7 +3,7 @@
 ![Go](https://github.com/thiago-scherrer/ocx/workflows/Go/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/thiago-scherrer/ocx)](https://goreportcard.com/report/github.com/thiago-scherrer/ocx)
 
-Outro CLI x
+Outro CLI x para a AWS
 
 ## Instalar baixando o binário
 
@@ -12,7 +12,7 @@ Baixe o binário de acordo com o seu sistema operacional, indo em [releases](htt
 Linux e macOS
 
 ```sh
-tar -C /bin/ -zxvf ocx_0.0.9_linux_amd64.tar.gz ocx
+tar -C /bin/ -zxvf ocx_0.1.0_linux_amd64.tar.gz ocx
 ```
 
 ## Instalar compilando
