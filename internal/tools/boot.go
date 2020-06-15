@@ -20,8 +20,14 @@ func SetupAWS() {
 	fmt.Print("Enter the AWS region: ")
 	reg, _ := reader.ReadString('\n')
 
-	if createDir() {
-		createFile(akey, asec, reg)
+	err := createDir()
+	if err != nil {
+		log.Println(err)
+	}
+
+	err = createFile(akey, asec, reg)
+	if err != nil {
+
 	}
 }
 
@@ -31,7 +37,7 @@ var (
 	awcred  = awsdir + "/credentials"
 )
 
-func createDir() bool {
+func createDir() error {
 	_, n := os.Stat(awsdir)
 
 	if os.IsNotExist(n) {
@@ -40,10 +46,10 @@ func createDir() bool {
 			log.Fatal("Error creating directory, got: ", err)
 		}
 	}
-	return true
+	return nil
 }
 
-func createFile(akey, asec, reg string) bool {
+func createFile(akey, asec, reg string) error {
 	f1, err := os.Create(awcred)
 	if err != nil {
 		log.Fatal("Error creating file, got: ", err)
@@ -71,5 +77,5 @@ func createFile(akey, asec, reg string) bool {
 	}
 
 	f1.Sync()
-	return true
+	return nil
 }
