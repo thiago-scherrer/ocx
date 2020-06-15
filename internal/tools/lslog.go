@@ -10,9 +10,7 @@ import (
 )
 
 // Group run the ls
-func Group() {
-	c := Client()
-
+func Group(c *cloudwatchlogs.CloudWatchLogs) {
 	params := &cloudwatchlogs.DescribeLogGroupsInput{}
 
 	err := c.DescribeLogGroupsPages(params,
@@ -29,9 +27,8 @@ func Group() {
 }
 
 // Stream run the ls on streams
-func Stream(g, f string) {
+func Stream(c *cloudwatchlogs.CloudWatchLogs, g, f string) {
 	ch := make(chan bool)
-	c := Client()
 
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
 		LogGroupName: aws.String(g),

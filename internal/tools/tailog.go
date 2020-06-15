@@ -10,9 +10,7 @@ import (
 )
 
 // Tail run stream the log event
-func Tail(gname, sname string, lines int64) {
-	c := Client()
-
+func Tail(c *cloudwatchlogs.CloudWatchLogs, gname, sname string, lines int64) {
 	log.Printf("Event messages for stream %v in log group %v:", sname, gname)
 
 	nextToken := ""

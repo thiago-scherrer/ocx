@@ -25,7 +25,8 @@ var tailCmd = &cobra.Command{
 
 		lines, _ := cmd.Flags().GetInt64("lines")
 
-		tools.Tail(gname, sname, lines)
+		c := tools.Client()
+		tools.Tail(c, gname, sname, lines)
 	},
 }
 

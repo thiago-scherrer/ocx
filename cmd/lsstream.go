@@ -19,7 +19,8 @@ var streamCmd = &cobra.Command{
 		if err != nil {
 			log.Fatalln("Error! Need log group name")
 		}
-		tools.Stream(gname, f)
+		c := tools.Client()
+		tools.Stream(c, gname, f)
 	},
 }
 

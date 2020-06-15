@@ -11,7 +11,8 @@ var groupCmd = &cobra.Command{
 	Short: "List log groups",
 	Long:  `Show all log groups available on cloudwath region account`,
 	Run: func(cmd *cobra.Command, args []string) {
-		tools.Group()
+		c := tools.Client()
+		tools.Group(c)
 	},
 }
 
