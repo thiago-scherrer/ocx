@@ -7,10 +7,11 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
+	"github.com/aws/aws-sdk-go/service/cloudwatchlogs/cloudwatchlogsiface"
 )
 
 // Group run the ls
-func Group(c *cloudwatchlogs.CloudWatchLogs) {
+func Group(c cloudwatchlogsiface.CloudWatchLogsAPI) {
 	params := &cloudwatchlogs.DescribeLogGroupsInput{}
 
 	err := c.DescribeLogGroupsPages(params,
@@ -21,6 +22,7 @@ func Group(c *cloudwatchlogs.CloudWatchLogs) {
 			}
 			return true
 		})
+
 	if err != nil {
 		log.Fatalln("Error to get Log Group, got:", err)
 	}
@@ -32,8 +34,8 @@ func Stream(c *cloudwatchlogs.CloudWatchLogs, g, f string) {
 
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
 		LogGroupName: aws.String(g),
+		Descending:   aws.Bool(true),
 		OrderBy:      aws.String("LastEventTime"),
-		Limit:        aws.Int64(50),
 	}
 
 	hd := func(page *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
