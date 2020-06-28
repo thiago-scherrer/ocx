@@ -11,21 +11,31 @@ import (
 )
 
 // Group run the ls
-func Group(c cloudwatchlogsiface.CloudWatchLogsAPI) {
+func Group(c cloudwatchlogsiface.CloudWatchLogsAPI) []string {
 	params := &cloudwatchlogs.DescribeLogGroupsInput{}
 
-	err := c.DescribeLogGroupsPages(params,
-		func(page *cloudwatchlogs.DescribeLogGroupsOutput, lastPage bool) bool {
+	s := 0
+	lr := make([]string, s)
+	lg := func(page *cloudwatchlogs.DescribeLogGroupsOutput, lastPage bool) bool {
 
-			for _, l := range page.LogGroups {
-				fmt.Println(*l.LogGroupName)
-			}
-			return true
-		})
+		for range page.LogGroups {
+			s++
+		}
 
-	if err != nil {
-		log.Fatalln("Error to get Log Group, got:", err)
+		lr = make([]string, s)
+		for i, l := range page.LogGroups {
+			lr[i] = *l.LogGroupName
+			fmt.Println(lr[i])
+		}
+		return true
 	}
+
+	err := c.DescribeLogGroupsPages(params, lg)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	return lr
 }
 
 // Stream run the ls on streams
@@ -41,16 +51,17 @@ func Stream(c *cloudwatchlogs.CloudWatchLogs, g, f string) {
 	hd := func(page *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
 		for _, l := range page.LogStreams {
 			a := *l.LogStreamName
+
 			go func(a string) {
 				ch <- matcher(f, a)
 			}(a)
+
 			select {
 			case x, _ := <-ch:
 				if x {
 					close(ch)
 					return false
 				}
-
 			}
 		}
 		return true
@@ -60,14 +71,6 @@ func Stream(c *cloudwatchlogs.CloudWatchLogs, g, f string) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-
-	go func() {
-		err := c.DescribeLogStreamsPages(params, hd)
-
-		if err != nil {
-			log.Fatalln(err)
-		}
-	}()
 }
 
 func matcher(f, a string) bool {
