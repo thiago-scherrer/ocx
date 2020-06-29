@@ -39,7 +39,7 @@ func Group(c cloudwatchlogsiface.CloudWatchLogsAPI) []string {
 }
 
 // Stream run the ls on streams
-func Stream(c *cloudwatchlogs.CloudWatchLogs, g, f string) {
+func Stream(c cloudwatchlogsiface.CloudWatchLogsAPI, g, f string) {
 	ch := make(chan bool)
 
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
